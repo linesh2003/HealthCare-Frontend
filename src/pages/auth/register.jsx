@@ -12,7 +12,11 @@ import {
 import { Icon } from "@iconify/react";
 import { useAuth } from "../../hooks/use-auth";
 
+import { useNavigate } from 'react-router-dom';
+
+
 const Register = () => {
+  const navigate = useNavigate(); // ✅ Correct placement
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
@@ -24,8 +28,15 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await register(formData);
+    const userRole = formData.userType; // 🛠 You were using `userRole` without defining it
+    if (userRole === "doctor") {
+      navigate("/doctor-dashboard");
+    } else if (userRole === "patient") {
+      navigate("/patient-dashboard");
+    }
   };
+
+  // ... rest of the code
 
   const handleChange = (key, value) => {
     setFormData((prev) => ({ ...prev, [key]: value }));

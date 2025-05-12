@@ -8,7 +8,7 @@ const Login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const navigate = useNavigate();
+
 
   const handleSubmit = (e) => {
   e.preventDefault(); // prevent page reload

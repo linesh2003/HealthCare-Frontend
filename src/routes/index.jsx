@@ -1,10 +1,10 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "../pages/auth/login";
-import Register from "../pages/auth/register";
-// import Dashboard from "../pages/dashboard";
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+//import Dashboard from "../pages/dashboard";
 import PatientDashboard from "../pages/dashboard/PatientDashboard";
-import DoctorDashboard from "../pages/dashboard/doctordashboard";
+import DoctorDashboard from "../pages/dashboard/DoctorDashboard";
 import ProtectedRoute from "./protected-route";
 import AppointmentBooking from "../pages/appointments/booking";
 import DoctorList from "../pages/appointments/doctor-list";
