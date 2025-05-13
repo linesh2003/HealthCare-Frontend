@@ -15,8 +15,8 @@ import {
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 
-
-const appointments = [
+// Initial static data
+const initialAppointments = [
   {
     id: "1",
     patient: {
@@ -52,6 +52,7 @@ const appointments = [
   },
 ];
 
+// Status color mapping
 const statusColorMap = {
   pending: "warning",
   confirmed: "success",
@@ -59,6 +60,19 @@ const statusColorMap = {
 };
 
 export const AppointmentTable = () => {
+  // Use state for dynamic UI updates
+  const [appointmentList, setAppointmentList] = React.useState(initialAppointments);
+
+  // Handle status update
+  const handleAction = (id, newStatus) => {
+    setAppointmentList((prev) =>
+      prev.map((appt) =>
+        appt.id === id ? { ...appt, status: newStatus } : appt
+      )
+    );
+  };
+
+  // Render individual cells
   const renderCell = React.useCallback((appointment, columnKey) => {
     switch (columnKey) {
       case "patient":
@@ -91,7 +105,7 @@ export const AppointmentTable = () => {
                   color="success"
                   size="sm"
                   variant="flat"
-                  onPress={() => console.log("Accept appointment", appointment.id)}
+                  onPress={() => handleAction(appointment.id, "confirmed")}
                 >
                   <Icon icon="lucide:check" className="h-4 w-4" />
                 </Button>
@@ -100,7 +114,7 @@ export const AppointmentTable = () => {
                   color="danger"
                   size="sm"
                   variant="flat"
-                  onPress={() => console.log("Reject appointment", appointment.id)}
+                  onPress={() => handleAction(appointment.id, "cancelled")}
                 >
                   <Icon icon="lucide:x" className="h-4 w-4" />
                 </Button>
@@ -111,15 +125,12 @@ export const AppointmentTable = () => {
       default:
         return appointment[columnKey];
     }
-  }, []);
+  }, [appointmentList]);
 
   return (
-    <>
-    
     <Card>
       <CardHeader className="flex items-center justify-between">
         <h4 className="text-large font-semibold">Today's Appointments</h4>
-       
       </CardHeader>
       <CardBody>
         <Table removeWrapper aria-label="Appointments table">
@@ -132,19 +143,20 @@ export const AppointmentTable = () => {
             <TableColumn>ACTIONS</TableColumn>
           </TableHeader>
           <TableBody>
-            {appointments.map((appointment) => (
+            {appointmentList.map((appointment) => (
               <TableRow key={appointment.id}>
-                {["patient", "date", "time", "type", "status", "actions"].map((columnKey) => (
-                  <TableCell key={columnKey}>
-                    {renderCell(appointment, columnKey)}
-                  </TableCell>
-                ))}
+                {["patient", "date", "time", "type", "status", "actions"].map(
+                  (columnKey) => (
+                    <TableCell key={columnKey}>
+                      {renderCell(appointment, columnKey)}
+                    </TableCell>
+                  )
+                )}
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </CardBody>
-    </Card>
-    </> 
-  );
+    </Card>
+  );
 };
