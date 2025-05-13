@@ -22,6 +22,7 @@ import { Icon } from "@iconify/react";
 import { parseDate, today } from "@internationalized/date";
 import  PaymentDetails  from "./payment-details";
 
+
 // Mock available time slots
 const timeSlots = [
   "09:00 AM",
@@ -33,8 +34,8 @@ const timeSlots = [
 ];
 
 const AppointmentBooking = () => {
-  const { doctorId } = useParams();
   const navigate = useNavigate();
+  const { doctorId } = useParams();
   const [selectedDate, setSelectedDate] = React.useState(today("UTC"));
   const [selectedTime, setSelectedTime] = React.useState("");
   const [step, setStep] = React.useState("date");
@@ -74,6 +75,7 @@ const AppointmentBooking = () => {
   };
 
   return (
+    
     <div className="space-y-6">
       <Button
         variant="light"

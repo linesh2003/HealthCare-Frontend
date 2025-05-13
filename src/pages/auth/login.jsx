@@ -1,10 +1,11 @@
 import React from "react";
 import { Card, CardBody, CardHeader, Input, Button, Link } from "@heroui/react";
 import { Icon } from "@iconify/react";
-
 import { useNavigate } from "react-router-dom";
 
+
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -12,6 +13,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
   e.preventDefault(); // prevent page reload
+  navigate('/dashboard');
 
   const role = "patient";
   if (role == "patient") {

@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardBody, CardHeader } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import PatientHeader from "../../components/PatientHeader";
+import PaymentDetails from "../appointments/payment-details";
+
 
 
 export const PatientDashboard = () => {
+const [recentActivities, setRecentActivities] = useState([]);
+const addRecentActivity = (activity) => {
+  setRecentActivities(prev => [...prev, { message: activity, timestamp: new Date() }]);
+};
+
+const handlePaymentSuccess = (paymentId, appointmentDetails) => {
+  console.log("Payment successful with ID:", paymentId);
+  console.log("Appointment details:", appointmentDetails);
+
+  const message = 'Paid $100.00 for appointment'
+addRecentActivity('Paid $100.00 (Payment ID: ${paymentId})');
+};
+
   
   return (
+    
     <>  
     <PatientHeader/>
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Welcome, Linesh</h1>
+        <h1 className="text-2xl font-bold">Welcome</h1>
       </div>
       
       <div className="grid gap-6 md:grid-cols-3">

@@ -48,7 +48,7 @@ export default function AppRoutes() {
           
         }
       />
-      <Route path="/" element={<Navigate to="/dashboard/citizen" replace />} />
+      <Route path="/" element={<Navigate to="/dashboard/patient" replace />} />
     </Routes>
   );
 }

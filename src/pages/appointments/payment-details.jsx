@@ -10,13 +10,15 @@ import { Icon } from "@iconify/react";
 
 const PaymentDetails = ({ amount, onSuccess, appointmentDetails }) => {
   const [isProcessing, setIsProcessing] = React.useState(false);
+  const [successMessage, setSuccessMessage] = React.useState('')
 
   const handlePayment = async () => {
     setIsProcessing(true);
     try {
       // Mock payment processing
       await new Promise(resolve => setTimeout(resolve, 2000));
-      onSuccess("mock_payment_intent_id");
+      onSuccess("mock_payment_intent_id", appointmentDetails);
+      setSuccessMessage("Payment successful!");
     } catch (error) {
       console.error("Payment failed:", error);
     } finally {
@@ -33,7 +35,7 @@ const PaymentDetails = ({ amount, onSuccess, appointmentDetails }) => {
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span className="text-default-600">Doctor</span>
-                <span className="font-medium">{appointmentDetails.doctor}</span>
+                <span className="font-medium">{appointmentDetails?.doctor?.name || "N/A"}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-default-600">Date</span>
@@ -84,6 +86,8 @@ const PaymentDetails = ({ amount, onSuccess, appointmentDetails }) => {
           >
             Pay ${amount.toFixed(2)}
           </Button>
+
+          {successMessage && <p style={{ color: 'green', marginTop: '10px' }}>{successMessage}</p>}
 
           <p className="text-center text-small text-default-500">
             <Icon icon="lucide:shield-check" className="inline mr-1" />
